@@ -45,7 +45,7 @@ func main() {
 
 	// Register all HTTP routes in a separate transport layer.
 	// Keeps main.go clean and enforces separation of concerns.
-	httptransport.RegisterRoutes(router)
+	httptransport.RegisterRoutes(router, db)
 
 	// Configure HTTP server explicitly instead of using router.Run().
 	// This is required for future graceful shutdown implementation.

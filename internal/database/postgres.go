@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/askii12/launchpad/internal/config"
+	"github.com/askii12/launchpad/internal/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -20,6 +21,12 @@ func NewPostgres(cfg *config.Config) (*gorm.DB, error) {
 	)
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	if err != nil {
+		return nil, err
+	}
+
+	// auto migration
+	err = db.AutoMigrate(&models.User{})
 	if err != nil {
 		return nil, err
 	}
